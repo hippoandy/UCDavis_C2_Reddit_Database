@@ -57,7 +57,6 @@ class worker():
     def input( self, obj_list ):
         self.reset()
         self.obj_list = obj_list
-        print( self.obj_list )
         return self
 
     ''' ignitiate '''
@@ -80,7 +79,7 @@ class worker():
             if( len( self.err_list ) ): self.obj_list.extend( create_list( self.err_list ) )
 
             # items that keep failed!
-            if( pre_list and sorted( self.obj_list ) == pre_list ):
+            if( pre_list and sorted( self.obj_list, key=lambda i: i[ 'id' ] ) == pre_list ):
                 self._record_failure()
                 utils.create_thread_report( len(self.obj_list), \
                                             self.finished, \
@@ -89,7 +88,7 @@ class worker():
                 return
             
             # record the current status for the next iteration
-            pre_list = sorted( self.obj_list )
+            pre_list = sorted( self.obj_list, key=lambda i: i[ 'id' ] )
             # clear failure list
             self.err_list.clear()
 
@@ -101,7 +100,7 @@ class worker():
             self.obj_list.clear()
             self.finished = 0
 
-        print( f"{msg_title} Operation finished without error!" )
+        print( f"{msg_title} Operation finished successfully!" )
 
 
     ''' save the failed list of obj '''
@@ -131,3 +130,11 @@ class worker():
             t.daemon = True
             t.start()
 # --------------------------------------------- self-defined classes
+
+def run_worker( name, data, work_funct ):
+
+    w = worker( name="test", concurrent=config.concurrent, timeout=config.timeout )
+
+    w.name_with( name )
+    w.input( data )
+    w.work_with( work_funct ).run()
