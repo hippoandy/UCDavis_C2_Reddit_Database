@@ -6,6 +6,8 @@ import errno
 import os
 import json, textwrap
 
+from datetime import datetime
+
 # global settings
 import config
 
@@ -19,6 +21,7 @@ def db_connect():
         passwd=config.mdb_pass
     )
     mycur = mydb.cursor()
+    mydb.autocommit = True
     return (mydb, mycur)
 
 def db_close( db ): db.close()
@@ -58,7 +61,6 @@ def write_to_json( path, data, encode=config.encoding_default ):
     with open( path, 'w+', encoding=encode, errors='ignore' ) as f:
         json.dump( data, f )
 
-
 def create_thread_report( len_data, finished, len_err, msg="Finished" ):
     print(textwrap.dedent(f'''\
         {msg}:
@@ -66,3 +68,11 @@ def create_thread_report( len_data, finished, len_err, msg="Finished" ):
             Number of data completed: {finished}
             Number of failure: {len_err}
     '''))
+
+def clean_str( str ): return str.replace( '\n', '' ).replace( '\r', '' ).replace( '\t', '' )
+
+def unix_to_datetime( ts ):
+    ts = clean_str( str(ts) )
+    return datetime.utcfromtimestamp( int(ts) )
+
+def datetime_to_str( dt, format=config.tsstr_default ): return dt.strftime( format )
