@@ -3,10 +3,13 @@
 
 # database connection settings ------------------------------
 mdb_addr = '127.0.0.1'
-# mdb_port = 3306
-mdb_port = 8889
-mdb_user = 'reddit'
+mdb_port = 3306
+mdb_user = 'andy'
 mdb_pass = 'test'
+# mdb_addr = '127.0.0.1'
+# mdb_port = 8889
+# mdb_user = 'reddit'
+# mdb_pass = 'test'
 
 mdb_db = 'reddit_comments'
 # ------------------------------ database connection settings
@@ -27,5 +30,5 @@ tsstr_default = '%Y-%m-%d %H:%M:%S'
 concurrent = 10
 timeout = 10
 
-partition = 100
+partition = 1000
 # ------------------------------------------- thread settings
