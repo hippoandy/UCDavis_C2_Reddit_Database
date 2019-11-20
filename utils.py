@@ -5,6 +5,7 @@ import mysql.connector
 import errno
 import os
 import json, textwrap
+from pathlib import Path
 
 from datetime import datetime
 
@@ -26,6 +27,11 @@ def db_connect():
 
 def db_close( db ): db.close()
 # -------------------------------------------------- database operations
+
+def is_file_exist( path ):
+    f = Path( path )
+    if( f.is_file() ): return True
+    else: return False
 
 # equivalent to UNIX command: '$ mkdir -p'
 def mkdir_p( path ):
