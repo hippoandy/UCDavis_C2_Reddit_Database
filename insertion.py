@@ -1,8 +1,7 @@
 '''
 '''
-
 import json
-import sys
+import sys, getopt
 
 # global settings
 import config
@@ -99,21 +98,50 @@ def parse( obj ):
     # close the database connection
     utils.db_close( db )
 
-if __name__ == '__main__':
-    with open( './sample_data.json', 'r', buffering=config.read_buffer ) as f:
-        data = []
-        idx, c = 0, 0
-        for l in f.readlines():
-            data.append( json.loads( l ) )
+def main( argv ):
+    # command line arguments
+    opts, args = getopt.getopt( argv, "hi:s:", [ "ifile=", "start=" ] )
+    # input file pointer
+    inputfile = None
+    # default value for start idx
+    start = 0
+    for opt, arg in opts:
+        if opt == '-h':
+            print( 'insertion.py -i <input_file> -s <start_idx>' )
+            sys.exit()
+        elif opt in ( "-i", "--ifile" ): inputfile = arg
+        elif opt in ( "-s", "--start" ):
+            try: start = int(arg)
+            except:
+                print( "Parameter start should be int!" )
+                sys.exit()
 
-            c += 1
-            idx += 1
-            if( c == config.partition ):
-                thread.run_worker( f"insert_{idx}", data, parse )
-                # clear
-                c = 0
-                data = []
+    if( inputfile is not None and utils.is_file_exist( inputfile ) ):
+        # init the worker class
+        w = thread.init_worker( concurrent=config.concurrent, timeout=config.timeout )
 
-            # parse( json.loads( l ) )
+        with open( inputfile, 'r', buffering=config.read_buffer ) as f:
+            data = []
+            idx, c = 0, 0
+            for l in f:
+                if( idx >= start ):
+                    try: dpoint = json.loads( l )
+                    except: continue
 
-        if( len( data ) ): thread.run_worker( f"insert_{idx}", data, parse )
+                    c += 1
+
+                    data.append( dpoint )
+                    if( c == config.partition ):
+                        print( f"insert_{idx - config.partition}-{idx}" )
+                        thread.run_worker( w, f"insert_{idx - config.partition}-{idx}", data, parse )
+                        # clear
+                        c = 0
+                        data = []
+                idx += 1
+            if( len( data ) ):
+                print( f"insert_{idx-len(data)}-{idx}" )
+                thread.run_worker( w, f"insert_{idx-len(data)}-{idx}", data, parse )
+    else:
+        print( "[WARNING] File not exists or not specified!" )
+
+if __name__ == '__main__': main( sys.argv[1:] )
