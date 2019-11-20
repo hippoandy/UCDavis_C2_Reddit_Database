@@ -92,7 +92,7 @@ class worker():
             # clear failure list
             self.err_list.clear()
 
-            print( f'''{msg_title} Number of items: {len( self.obj_list )}''')
+            print( f'''{msg_title} Task name: {self.name}, Number of items: {len( self.obj_list )}''')
             for obj in self.obj_list: self.job_queue.put( obj )
             self.job_queue.join()
 
@@ -131,10 +131,10 @@ class worker():
             t.start()
 # --------------------------------------------- self-defined classes
 
-def run_worker( name, data, work_funct ):
+def init_worker( name="test", concurrent=config.concurrent, timeout=config.timeout ):
+    return worker( name, concurrent, timeout )
 
-    w = worker( name="test", concurrent=config.concurrent, timeout=config.timeout )
-
+def run_worker( w, name, data, work_funct ):
     w.name_with( name )
     w.input( data )
     w.work_with( work_funct ).run()
