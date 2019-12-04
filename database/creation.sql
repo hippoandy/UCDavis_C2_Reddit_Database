@@ -1,9 +1,12 @@
+-- create database
 CREATE DATABASE IF NOT EXISTS reddit_comments;
 
+-- point to the database
 USE reddit_comments;
 
+-- create tables
 CREATE TABLE Author (
-  author varchar(255) PRIMARY KEY,
+  author varchar(255) PRIMARY KEY NOT NULL,
   author_fullname varchar(255),
   author_created_utc TIMESTAMP NULL
   -- author_flair_css_class varchar(255),
@@ -11,7 +14,7 @@ CREATE TABLE Author (
 );
 
 CREATE TABLE Subreddit (
-  id varchar(255) PRIMARY KEY,
+  id varchar(255) PRIMARY KEY NOT NULL,
   subreddit_name varchar(255),
   subreddit_name_prefixed varchar(255),
   subreddit_type varchar(255)
@@ -21,7 +24,7 @@ CREATE TABLE Subreddit (
 SET SQL_MODE='ALLOW_INVALID_DATES';
 
 CREATE TABLE Comment (
-  id varchar(255) PRIMARY KEY,
+  id varchar(255) PRIMARY KEY NOT NULL,
   link_id varchar(255),
   parent_id varchar(255),
   subreddit_id varchar(255),
@@ -37,8 +40,8 @@ CREATE TABLE Comment (
 );
 
 CREATE TABLE CommentDetail (
-  id varchar(255) PRIMARY KEY,
-  name varchar(255),
+  id varchar(255) PRIMARY KEY NOT NULL,
+  name varchar(255) NOT NULL,
   body text,
   archived boolean,
   edited boolean,
@@ -48,8 +51,7 @@ CREATE TABLE CommentDetail (
   score_hidden boolean
 );
 
+-- add foreign key constrains
 ALTER TABLE CommentDetail ADD FOREIGN KEY (id) REFERENCES Comment (id);
-
 ALTER TABLE Comment ADD FOREIGN KEY (subreddit_id) REFERENCES Subreddit (id);
-
 ALTER TABLE Comment ADD FOREIGN KEY (author) REFERENCES Author (author);
