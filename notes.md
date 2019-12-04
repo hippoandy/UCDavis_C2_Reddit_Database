@@ -10,9 +10,17 @@ $ mysqldump --xml --no-data --single-transaction=true -h <host> -u <account> -p 
 
 ## References
 
+### ASCII Table
+
+* [http://www.asciitable.com/](http://www.asciitable.com/)
+
 ### Optimization
 
 * [https://dzone.com/articles/how-to-optimize-mysql-queries-for-speed-and-perfor](https://dzone.com/articles/how-to-optimize-mysql-queries-for-speed-and-perfor)
+
+### Index
+
+*[https://stackoverflow.com/questions/5719392/why-isnt-mysql-using-any-of-these-possible-keys](https://stackoverflow.com/questions/5719392/why-isnt-mysql-using-any-of-these-possible-keys)
 
 ### Create CSV
 
@@ -50,3 +58,11 @@ $ mysqldump --xml --no-data --single-transaction=true -h <host> -u <account> -p 
 ### SQL - Append Text to Value
 
 * [https://stackoverflow.com/questions/16965011/append-text-to-each-row-of-the-sql-select-query](https://stackoverflow.com/questions/16965011/append-text-to-each-row-of-the-sql-select-query)
+
+### SQL - Replace Char in Value
+
+* [https://stackoverflow.com/questions/2259446/need-to-export-fields-containing-linebreaks-as-a-csv-from-sql-server/11330194](https://stackoverflow.com/questions/2259446/need-to-export-fields-containing-linebreaks-as-a-csv-from-sql-server/11330194)
+
+### SQL - String not equal
+
+* [https://stackoverflow.com/questions/16324504/sql-how-to-perform-string-does-not-equal](https://stackoverflow.com/questions/16324504/sql-how-to-perform-string-does-not-equal)
