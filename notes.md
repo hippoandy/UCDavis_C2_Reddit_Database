@@ -1,4 +1,4 @@
-# MySQL (MariaDB) Learn Notes
+# MySQL (MariaDB) Learning Notes
 
 ## "mysqldump" Usage
 
@@ -44,6 +44,10 @@ $ mysqldump --xml --no-data --single-transaction=true -h <host> -u <account> -p 
 * [https://dev.mysql.com/doc/refman/5.6/en/analyze-table.html]()
 
 ### SQL - Alter Column
+
+```sql
+ALTER TABLE <table_name> MODIFY COLUMN <col_name> <col_type> NOT NULL;
+```
 
 * [https://dba.stackexchange.com/questions/152387/altering-a-column-null-to-not-null](https://dba.stackexchange.com/questions/152387/altering-a-column-null-to-not-null)
 

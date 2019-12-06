@@ -12,6 +12,10 @@ CREATE UNIQUE INDEX authorid ON Author(author);
 CREATE UNIQUE INDEX subredditid ON Subreddit(id);
 
 
+ALTER TABLE Comment
+    MODIFY COLUMN link_id varchar(255) NOT NULL,
+    MODIFY COLUMN parent_id varchar(255) NOT NULL;
+
 -- ********** DEPRECATED **********
 
 -- UPDATE Comment INNER JOIN CommentDetail ON Comment.id = CommentDetail.id SET Comment.body = CommentDetail.body;

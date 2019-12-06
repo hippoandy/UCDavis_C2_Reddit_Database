@@ -25,9 +25,9 @@ SET SQL_MODE='ALLOW_INVALID_DATES';
 
 CREATE TABLE Comment (
   id varchar(255) PRIMARY KEY NOT NULL,
-  link_id varchar(255),
-  parent_id varchar(255),
-  subreddit_id varchar(255),
+  link_id varchar(255) NOT NULL,
+  parent_id varchar(255) NOT NULL,
+  subreddit_id varchar(255) NOT NULL,
   author varchar(255),
   score int,
   gilded int,
