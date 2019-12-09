@@ -104,11 +104,23 @@ venv.bak/
 .mypy_cache/
 
 # MS Office temp file
+
+*.tmp
+
 # Word temporary
-~$*.docx*
+*~$*.docx*
+
+# Word Auto Backup File
+Backup of *.docx*
 
 # Excel temporary
-~$*.xlsx*
+*~$*.xlsx*
+
+# Excel Backup File
+*.xlk
 
 # PowerPoint temporary
-~$*.pptx*
+*~$*.pptx*
+
+# Visio autosave temporary files
+*.~vsd*
