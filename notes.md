@@ -39,6 +39,15 @@ $ mysqldump --xml --no-data --single-transaction=true -h <host> -u <account> -p 
 
 * [https://www.w3schools.com/sql/sql_foreignkey.asp](https://www.w3schools.com/sql/sql_foreignkey.asp)
 
+### Output File Permission
+
+* [https://stackoverflow.com/questions/6091427/mysql-into-outfile-access-denied-but-my-user-has-all-access-and-the-fold](https://stackoverflow.com/questions/6091427/mysql-into-outfile-access-denied-but-my-user-has-all-access-and-the-fold)
+
+```sql
+GRANT FILE ON *.* TO '<user>'@'%';
+FLUSH PRIVILEGES;
+```
+
 ### SQL - Analyze Table
 
 * [https://dev.mysql.com/doc/refman/5.6/en/analyze-table.html]()
